@@ -1,12 +1,12 @@
 package com.unlam.pavanzada.dijkstra;
 
 public class MatrizSimetrica {
-	int[] vectorSimetrico;
-	int orden;
-	int dimensionVector;
-	int fila;
-	int columna;
-	int costo;
+	private int[] vectorSimetrico;
+	private int orden;
+	private int dimensionVector;
+	private int fila;
+	private int columna;
+	private int costo;
 
 	public MatrizSimetrica(int orden) {
 		this.orden = orden;
@@ -15,11 +15,11 @@ public class MatrizSimetrica {
 	}
 
 	public void insertarEnVector(int fila, int columna, int costo) {
-		vectorSimetrico[(int) (fila * orden + columna - (Math.pow(fila, 2) + 3 * fila + 2) / 2)] = costo;
+		vectorSimetrico[(int) (fila * orden + columna - ((Math.pow(fila, 2) +( 3 * fila )+ 2) / 2))] = costo;
 	}
 	
 	public int valorEnPosicion(int fila,int columna){
-		return vectorSimetrico[(int) (fila * orden + columna - (Math.pow(fila, 2) + 3 * fila + 2) / 2)];
+		return vectorSimetrico[(int) (fila * orden + columna - ((Math.pow(fila, 2) +( 3 * fila )+ 2) / 2))];
 	}
 	
 	public void mostrar() {
@@ -32,5 +32,53 @@ public class MatrizSimetrica {
 				
 		}
 
+	}
+
+	public int[] getVectorSimetrico() {
+		return vectorSimetrico;
+	}
+
+	public void setVectorSimetrico(int[] vectorSimetrico) {
+		this.vectorSimetrico = vectorSimetrico;
+	}
+
+	public int getOrden() {
+		return orden;
+	}
+
+	public void setOrden(int orden) {
+		this.orden = orden;
+	}
+
+	public int getDimensionVector() {
+		return dimensionVector;
+	}
+
+	public void setDimensionVector(int dimensionVector) {
+		this.dimensionVector = dimensionVector;
+	}
+
+	public int getFila() {
+		return fila;
+	}
+
+	public void setFila(int fila) {
+		this.fila = fila;
+	}
+
+	public int getColumna() {
+		return columna;
+	}
+
+	public void setColumna(int columna) {
+		this.columna = columna;
+	}
+
+	public int getCosto() {
+		return costo;
+	}
+
+	public void setCosto(int costo) {
+		this.costo = costo;
 	}
 }

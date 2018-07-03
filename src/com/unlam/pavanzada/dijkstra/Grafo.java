@@ -9,10 +9,10 @@ import java.util.List;
 
 public class Grafo {
 
-	int cantAristas;
-	int cantNodos;
-	MatrizSimetrica matrizNodos;
-	List<Nodo> nodos;
+	private int cantAristas;
+	private int cantNodos;
+	private MatrizSimetrica matrizNodos;
+	private List<Nodo> nodos;
 
 	
 	public void leerArchivo(File f){
@@ -41,10 +41,18 @@ public class Grafo {
 				Integer nodoInicio = Integer.valueOf(valores[0])-1;
 				Integer nodoDestino = Integer.valueOf(valores[1])-1;
 				Integer costo = Integer.valueOf(valores[2]);
- 				matrizNodos.insertarEnVector(nodoInicio, nodoDestino , costo);
+				if(nodoInicio<nodoDestino) {
+					matrizNodos.insertarEnVector(nodoInicio, nodoDestino , costo);
  				
- 				Nodo nuevoNodo = new Nodo(nodoDestino);
- 				nodos.get(nodoInicio).agregarVecino(nuevoNodo);
+				}else {
+					matrizNodos.insertarEnVector(nodoDestino, nodoInicio , costo);
+ 				
+				}
+ 				
+ 				Nodo nuevoNodoDestino = new Nodo(nodoDestino);
+ 				Nodo nuevoNodoInicial = new Nodo(nodoInicio);
+ 				nodos.get(nodoInicio).agregarVecino(nuevoNodoDestino);
+ 				nodos.get(nodoDestino).agregarVecino(nuevoNodoInicial);
  				
 			}
 	
@@ -55,5 +63,40 @@ public class Grafo {
 	
 	public void getAristas(){
 		
+	}
+
+	public int getCantAristas() {
+		return cantAristas;
+	}
+
+	public void setCantAristas(int cantAristas) {
+		this.cantAristas = cantAristas;
+	}
+
+	public int getCantNodos() {
+		return cantNodos;
+	}
+
+	public void setCantNodos(int cantNodos) {
+		this.cantNodos = cantNodos;
+	}
+
+	public MatrizSimetrica getMatrizNodos() {
+		return matrizNodos;
+	}
+
+	public void setMatrizNodos(MatrizSimetrica matrizNodos) {
+		this.matrizNodos = matrizNodos;
+	}
+
+	public List<Nodo> getNodos() {
+		return nodos;
+	}
+
+	public void setNodos(List<Nodo> nodos) {
+		this.nodos = nodos;
+	}
+	public List<Nodo> conseguirNodosVecinos(int nodoActual){
+		return nodos.get(nodoActual).conseguirVecinos();
 	}
 }
