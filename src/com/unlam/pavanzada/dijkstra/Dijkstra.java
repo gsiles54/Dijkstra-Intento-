@@ -79,8 +79,8 @@ public class Dijkstra {
 		File f = new File("entrada.txt");
 		Grafo grafo = new Grafo();
 		grafo.leerArchivo(f);
-
-		Dijkstra dijsktra = new Dijkstra(grafo, 2);
+		
+		Dijkstra dijsktra = new Dijkstra(grafo, 3);
 		dijsktra.resolver();
 	}
 }

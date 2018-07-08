@@ -7,8 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Grafo {
-
+public class GrafoDirigido {
 	private int cantAristas;
 	private int cantNodos;
 	private MatrizSimetrica matrizNodos;
@@ -38,8 +37,8 @@ public class Grafo {
 			while((linea=br.readLine())!=null){
 				valores = linea.split(" ");
 			
-				Integer nodoInicio = Integer.valueOf(valores[0]);
-				Integer nodoDestino = Integer.valueOf(valores[1]);
+				Integer nodoInicio = Integer.valueOf(valores[0])-1;
+				Integer nodoDestino = Integer.valueOf(valores[1])-1;
 				Integer costo = Integer.valueOf(valores[2]);
 				if(nodoInicio<nodoDestino) {
 					matrizNodos.insertarEnVector(nodoInicio, nodoDestino , costo);
