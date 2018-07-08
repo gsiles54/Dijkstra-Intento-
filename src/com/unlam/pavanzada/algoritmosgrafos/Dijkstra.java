@@ -1,10 +1,16 @@
-package com.unlam.pavanzada.dijkstra;
+package com.unlam.pavanzada.algoritmosgrafos;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
+
+import com.unlam.pavanzada.grafos.CostosANodo;
+import com.unlam.pavanzada.grafos.Grafo;
+import com.unlam.pavanzada.grafos.GrafoDP;
+import com.unlam.pavanzada.grafos.GrafoNDP;
+import com.unlam.pavanzada.grafos.Nodo;
 
 public class Dijkstra {
 
@@ -23,6 +29,7 @@ public class Dijkstra {
 		nodosSinVisitar = new PriorityQueue<>();
 		nodosVecinos = new ArrayList<>();
 	}
+
 
 	public void resolver() {
 		costosDeNodos = grafo.getMatrizNodos().getVectorSimetrico();
@@ -77,7 +84,7 @@ public class Dijkstra {
 	}
 	public static void main(String[] args) {
 		File f = new File("entrada.txt");
-		Grafo grafo = new Grafo();
+		Grafo grafo = new GrafoNDP();
 		grafo.leerArchivo(f);
 		
 		Dijkstra dijsktra = new Dijkstra(grafo, 3);

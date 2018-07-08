@@ -1,4 +1,4 @@
-package com.unlam.pavanzada.dijkstra;
+package com.unlam.pavanzada.grafos;
 
 public class MatrizSimetrica {
 	private int[] vectorSimetrico;

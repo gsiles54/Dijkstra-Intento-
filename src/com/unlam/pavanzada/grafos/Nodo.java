@@ -1,4 +1,4 @@
-package com.unlam.pavanzada.dijkstra;
+package com.unlam.pavanzada.grafos;
 
 import java.util.ArrayList;
 import java.util.List;
