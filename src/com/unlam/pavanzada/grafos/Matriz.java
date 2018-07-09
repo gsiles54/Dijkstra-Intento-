@@ -8,7 +8,6 @@ public class Matriz {
 
 	public Matriz(int orden) {
 		this.orden = orden;
-
 		this.matriz = new int[orden][orden];
 	}
 
@@ -24,13 +23,11 @@ public class Matriz {
 		
 		for (int i = 0; i < this.orden; i++) {
 			for(int j = 0 ; j < this.orden; j++) {
-					if(j%orden==0){
-					System.out.println();
-				}else{
+				
 					System.out.print(this.matriz[i][j] + " ");
-				}
+				
 			}
-			
+			System.out.println();
 		}
 	}
 

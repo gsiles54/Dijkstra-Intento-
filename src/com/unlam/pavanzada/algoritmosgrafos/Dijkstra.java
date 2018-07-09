@@ -81,12 +81,5 @@ public class Dijkstra {
 
 	}
 
-	public static void main(String[] args) {
-		File f = new File("entrada.txt");
-		Grafo grafo = new GrafoDP();
-		grafo.leerArchivo(f);
 
-		Dijkstra dijsktra = new Dijkstra(grafo, 3);
-		dijsktra.resolver();
-	}
 }
