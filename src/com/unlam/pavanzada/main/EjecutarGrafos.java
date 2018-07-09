@@ -14,7 +14,7 @@ public class EjecutarGrafos {
 		Grafo grafo = new GrafoDP();
 		grafo.leerArchivo(f);
 		
-		Dijkstra dijsktra = new Dijkstra(grafo, 3);
+		Dijkstra dijsktra = new Dijkstra(grafo, 1);
 		dijsktra.resolver();
 		Floyd floyd = new Floyd(grafo);
 		floyd.resolver();
