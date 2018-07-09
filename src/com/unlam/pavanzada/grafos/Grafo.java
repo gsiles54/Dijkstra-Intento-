@@ -1,63 +1,19 @@
 package com.unlam.pavanzada.grafos;
 
-import java.io.BufferedReader;
+
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public abstract class Grafo {
 
 	protected int cantAristas;
 	protected int cantNodos;
-	protected MatrizSimetrica matrizNodos;
+	protected Matriz matrizNodos;
 	protected List<Nodo> nodos;
 	
 	
-	public void leerArchivo(File f){
-		FileReader fr = null;
-		BufferedReader br = null;
-		
-		try{
-			fr = new FileReader(f);
-			br = new BufferedReader(fr);
-			
-			String linea;
-			linea = br.readLine();
-			String[] valores = linea.split(" ");
-			this.cantNodos = Integer.valueOf(valores[0]);
-			matrizNodos = new MatrizSimetrica(cantNodos);
-			this.cantAristas =  Integer.valueOf(valores[1]);
-			int i = 0;
-			nodos = new ArrayList<>(cantNodos);
-			for(i = 0 ; i<cantNodos ; i++){
-				nodos.add(new Nodo(i));
-			}
-
-			while((linea=br.readLine())!=null){
-				valores = linea.split(" ");
-			
-				Integer nodoInicio = Integer.valueOf(valores[0]);
-				Integer nodoDestino = Integer.valueOf(valores[1]);
-				Integer costo = Integer.valueOf(valores[2]);
-				if(nodoInicio<nodoDestino) {
-					matrizNodos.insertarEnVector(nodoInicio, nodoDestino , costo);
- 				
-				}else {
-					matrizNodos.insertarEnVector(nodoDestino, nodoInicio , costo);
- 				
-				}
- 				
- 				
- 				agregarVecino(nodoInicio,nodoDestino);
- 				
-			}
-	
-		}catch(IOException ioex){
-			ioex.printStackTrace();
-		}
-	}
+	public abstract void leerArchivo(File f);
 	
 	abstract protected void agregarVecino(Integer nodoInicio, Integer nodoDestino) ;
 
@@ -82,7 +38,7 @@ public abstract class Grafo {
 		this.cantNodos = cantNodos;
 	}
 
-	public MatrizSimetrica getMatrizNodos() {
+	public Matriz getMatrizNodos() {
 		return matrizNodos;
 	}
 

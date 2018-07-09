@@ -1,25 +1,28 @@
 package com.unlam.pavanzada.grafos;
 
-public class MatrizSimetrica {
+public class MatrizSimetrica extends Matriz{
 	private int[] vectorSimetrico;
-	private int orden;
+
 	private int dimensionVector;
-	private int fila;
-	private int columna;
-	private int costo;
+
 
 	public MatrizSimetrica(int orden) {
-		this.orden = orden;
+		super(orden);
 		this.dimensionVector = (int) (Math.pow(orden, 2) - orden) / 2;
 		vectorSimetrico = new int[dimensionVector];
 	}
-
-	public void insertarEnVector(int fila, int columna, int costo) {
+	
+	@Override
+	public void setValorEnPosicion(int fila, int columna, int costo) {
 		vectorSimetrico[(int) (fila * orden + columna - ((Math.pow(fila, 2) +( 3 * fila )+ 2) / 2))] = costo;
 	}
-	
-	public int valorEnPosicion(int fila,int columna){
-		return vectorSimetrico[(int) (fila * orden + columna - ((Math.pow(fila, 2) +( 3 * fila )+ 2) / 2))];
+	@Override
+	public int getValorEnPosicion(int fila,int columna){
+		if(fila<columna) {
+			return vectorSimetrico[(int) (fila * orden + columna - ((Math.pow(fila, 2) +( 3 * fila )+ 2) / 2))];
+
+		}
+		return vectorSimetrico[(int) (columna * orden + fila - ((Math.pow(columna, 2) +( 3 * columna )+ 2) / 2))];
 	}
 	
 	public void mostrar() {
@@ -29,9 +32,7 @@ public class MatrizSimetrica {
 				}else{
 					System.out.print(this.vectorSimetrico[i] + " ");
 				}
-				
 		}
-
 	}
 
 	public int[] getVectorSimetrico() {
@@ -42,13 +43,6 @@ public class MatrizSimetrica {
 		this.vectorSimetrico = vectorSimetrico;
 	}
 
-	public int getOrden() {
-		return orden;
-	}
-
-	public void setOrden(int orden) {
-		this.orden = orden;
-	}
 
 	public int getDimensionVector() {
 		return dimensionVector;
@@ -58,27 +52,5 @@ public class MatrizSimetrica {
 		this.dimensionVector = dimensionVector;
 	}
 
-	public int getFila() {
-		return fila;
-	}
 
-	public void setFila(int fila) {
-		this.fila = fila;
-	}
-
-	public int getColumna() {
-		return columna;
-	}
-
-	public void setColumna(int columna) {
-		this.columna = columna;
-	}
-
-	public int getCosto() {
-		return costo;
-	}
-
-	public void setCosto(int costo) {
-		this.costo = costo;
-	}
 }

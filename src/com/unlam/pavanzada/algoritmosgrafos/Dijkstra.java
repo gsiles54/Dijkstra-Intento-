@@ -18,7 +18,6 @@ public class Dijkstra {
 	Integer nroNodoInicial;
 	Grafo grafo;
 	Queue<CostosANodo> nodosSinVisitar;
-	int[] costosDeNodos;
 	CostosANodo[] costosDesdeInicial;
 	List<Nodo> nodosVecinos;
 
@@ -28,40 +27,34 @@ public class Dijkstra {
 		this.nroNodoInicial = nroNodoInicial;
 		nodosSinVisitar = new PriorityQueue<>();
 		nodosVecinos = new ArrayList<>();
+
 	}
 
-
 	public void resolver() {
-		costosDeNodos = grafo.getMatrizNodos().getVectorSimetrico();
+		if (this.grafo.getClass().getSimpleName().equals("GrafoDP")) {
+			resolverGrafoDP();
+		} else {
+			resolverGrafoNDP();
+		}
+	}
+
+	public void resolverGrafoDP() {
 		vectorCostos = new int[grafo.getCantNodos()];
 
-		int distanciaTentativa;
-		//Inicio vector costos
-		for (int i = 0; i < vectorCostos.length; i++) {
-
-			vectorCostos[i] = 200000;
-		}
-		vectorCostos[nroNodoInicial] = 0;
+		// Inicio vector costos
+		inicializarVectorCostos();
 		// -----------------------------------
-		//Agrego primer elemento a al PQ
+		// Agrego primer elemento a al PQ
 		nodosSinVisitar.add(new CostosANodo(nroNodoInicial, vectorCostos[nroNodoInicial]));
 		while (!nodosSinVisitar.isEmpty()) {
 			int nroNodo = nodosSinVisitar.poll().getNodo();
 			nodosVecinos = grafo.conseguirNodosVecinos(nroNodo);
 			for (Nodo vecinoActual : nodosVecinos) {
-				System.out.println(
-						"El numero de nodo es " + nroNodo + " ??? " + " el del vecino es " + vecinoActual.getNroNodo());
-
+				int distanciaTentativa;
 				int nroNodoVecino = vecinoActual.getNroNodo();
-				//Como estoy trabajando con la matriz simetrica en forma de vector, si pongo los nodos al reves no funciona.
-				//(fila siempre es menor que columna)
-				if (nroNodo < nroNodoVecino) {
-					distanciaTentativa = vectorCostos[nroNodo]
-							+ costoArista(nroNodo, nroNodoVecino);
-				} else {
-					distanciaTentativa = vectorCostos[nroNodo]
-							+ costoArista(nroNodoVecino, nroNodo);
-				}
+
+				distanciaTentativa = vectorCostos[nroNodo] + costoArista(nroNodo, nroNodoVecino);
+
 				// SI LA DISTANCIA NUEVA ES MENOR QUE LA QUE YA TENGO GUARDADO, PISO
 				if (distanciaTentativa < vectorCostos[vecinoActual.getNroNodo()]) {
 					vectorCostos[vecinoActual.getNroNodo()] = distanciaTentativa;
@@ -76,17 +69,61 @@ public class Dijkstra {
 
 	}
 
-	public void mostrarResultadoEnConsola() {
+	private void inicializarVectorCostos() {
+		for (int i = 0; i < vectorCostos.length; i++) {
+
+			vectorCostos[i] = 200000;
+		}
+		vectorCostos[nroNodoInicial] = 0;
+	}
+
+	public void resolverGrafoNDP() {
+		vectorCostos = new int[grafo.getCantNodos()];
+
+		inicializarVectorCostos();
+		// -----------------------------------
+		// Agrego primer elemento a al PQ
+		nodosSinVisitar.add(new CostosANodo(nroNodoInicial, vectorCostos[nroNodoInicial]));
+		while (!nodosSinVisitar.isEmpty()) {
+			int nroNodo = nodosSinVisitar.poll().getNodo();
+			nodosVecinos = grafo.conseguirNodosVecinos(nroNodo);
+			for (Nodo vecinoActual : nodosVecinos) {
+				int distanciaTentativa;
+
+				int nroNodoVecino = vecinoActual.getNroNodo();
+
+				distanciaTentativa = vectorCostos[nroNodo] + costoArista(nroNodo, nroNodoVecino);
+				// SI LA DISTANCIA NUEVA ES MENOR QUE LA QUE YA TENGO GUARDADO, PISO
+				if (distanciaTentativa < vectorCostos[vecinoActual.getNroNodo()]) {
+					vectorCostos[vecinoActual.getNroNodo()] = distanciaTentativa;
+
+					nodosSinVisitar
+							.add(new CostosANodo(vecinoActual.getNroNodo(), vectorCostos[vecinoActual.getNroNodo()]));
+				}
+			}
+
+		}
+		mostrarResultadoEnConsola();
 
 	}
-	public int costoArista(int nroNodoInicio, int nroNodoDestino) {
-		 return grafo.getMatrizNodos().valorEnPosicion(nroNodoInicio, nroNodoDestino);
+
+	public void mostrarResultadoEnConsola() {
+		for (int i = 0; i < vectorCostos.length; i++) {
+			System.out.println("Posicion " + i + " tiene costo: " + vectorCostos[i]);
+		}
 	}
+
+	public int costoArista(int nroNodoInicio, int nroNodoDestino) {
+
+		return grafo.getMatrizNodos().getValorEnPosicion(nroNodoInicio, nroNodoDestino);
+
+	}
+
 	public static void main(String[] args) {
 		File f = new File("entrada.txt");
 		Grafo grafo = new GrafoNDP();
 		grafo.leerArchivo(f);
-		
+
 		Dijkstra dijsktra = new Dijkstra(grafo, 3);
 		dijsktra.resolver();
 	}

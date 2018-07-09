@@ -1,18 +1,18 @@
 package com.unlam.pavanzada.algoritmosgrafos;
 
-import com.unlam.pavanzada.grafos.GrafoDP;
-import com.unlam.pavanzada.grafos.GrafoNDP;
+import com.unlam.pavanzada.grafos.Grafo;
 
 public class Floyd {
 	
 	
-	private GrafoNDP grafoND;
-	private GrafoDP grafoD;
+	private Grafo grafo;
 
-	public Floyd(GrafoNDP grafo) {
-		this.grafoND = grafo;
+	public Floyd(Grafo grafo) {
+		this.grafo = grafo;
 	}
-	public Floyd(GrafoDP grafo) {
-		this.grafoD = grafo;
+	
+	public void resolver() {
+		
 	}
+
 }
