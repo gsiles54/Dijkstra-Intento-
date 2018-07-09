@@ -31,53 +31,6 @@ public class Dijkstra {
 	}
 
 	public void resolver() {
-		if (this.grafo.getClass().getSimpleName().equals("GrafoDP")) {
-			resolverGrafoDP();
-		} else {
-			resolverGrafoNDP();
-		}
-	}
-
-	public void resolverGrafoDP() {
-		vectorCostos = new int[grafo.getCantNodos()];
-
-		// Inicio vector costos
-		inicializarVectorCostos();
-		// -----------------------------------
-		// Agrego primer elemento a al PQ
-		nodosSinVisitar.add(new CostosANodo(nroNodoInicial, vectorCostos[nroNodoInicial]));
-		while (!nodosSinVisitar.isEmpty()) {
-			int nroNodo = nodosSinVisitar.poll().getNodo();
-			nodosVecinos = grafo.conseguirNodosVecinos(nroNodo);
-			for (Nodo vecinoActual : nodosVecinos) {
-				int distanciaTentativa;
-				int nroNodoVecino = vecinoActual.getNroNodo();
-
-				distanciaTentativa = vectorCostos[nroNodo] + costoArista(nroNodo, nroNodoVecino);
-
-				// SI LA DISTANCIA NUEVA ES MENOR QUE LA QUE YA TENGO GUARDADO, PISO
-				if (distanciaTentativa < vectorCostos[vecinoActual.getNroNodo()]) {
-					vectorCostos[vecinoActual.getNroNodo()] = distanciaTentativa;
-
-					nodosSinVisitar
-							.add(new CostosANodo(vecinoActual.getNroNodo(), vectorCostos[vecinoActual.getNroNodo()]));
-				}
-			}
-
-		}
-		System.out.println("");
-
-	}
-
-	private void inicializarVectorCostos() {
-		for (int i = 0; i < vectorCostos.length; i++) {
-
-			vectorCostos[i] = 200000;
-		}
-		vectorCostos[nroNodoInicial] = 0;
-	}
-
-	public void resolverGrafoNDP() {
 		vectorCostos = new int[grafo.getCantNodos()];
 
 		inicializarVectorCostos();
@@ -107,6 +60,15 @@ public class Dijkstra {
 
 	}
 
+	
+	private void inicializarVectorCostos() {
+		for (int i = 0; i < vectorCostos.length; i++) {
+
+			vectorCostos[i] = 200000;
+		}
+		vectorCostos[nroNodoInicial] = 0;
+	}
+
 	public void mostrarResultadoEnConsola() {
 		for (int i = 0; i < vectorCostos.length; i++) {
 			System.out.println("Posicion " + i + " tiene costo: " + vectorCostos[i]);
@@ -121,7 +83,7 @@ public class Dijkstra {
 
 	public static void main(String[] args) {
 		File f = new File("entrada.txt");
-		Grafo grafo = new GrafoNDP();
+		Grafo grafo = new GrafoDP();
 		grafo.leerArchivo(f);
 
 		Dijkstra dijsktra = new Dijkstra(grafo, 3);
