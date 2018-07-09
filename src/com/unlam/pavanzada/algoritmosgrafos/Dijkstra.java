@@ -21,22 +21,24 @@ public class Dijkstra {
 	Queue<CostosANodo> nodosSinVisitar;
 	CostosANodo[] costosDesdeInicial;
 	List<Nodo> nodosVecinos;
-	Matriz precedencia;
-	
+	int[] precedencia;
+	boolean[] visitado;
+
 	public Dijkstra(Grafo grafo, int nroNodoInicial) {
 
 		this.grafo = grafo;
 		this.nroNodoInicial = nroNodoInicial;
 		nodosSinVisitar = new PriorityQueue<>();
 		nodosVecinos = new ArrayList<>();
-		precedencia = new Matriz(grafo.getMatrizNodos().getOrden());
+		precedencia = new int[(grafo.getMatrizNodos().getOrden())];
+		visitado = new boolean[precedencia.length];
 	}
 
 	public void resolver() {
 		vectorCostos = new int[grafo.getCantNodos()];
 
-		inicializarVectorCostos();
 		inicializarPrecedencia();
+		inicializarVectorCostos();
 		// -----------------------------------
 		// Agrego primer elemento a al PQ
 		nodosSinVisitar.add(new CostosANodo(nroNodoInicial, vectorCostos[nroNodoInicial]));
@@ -50,15 +52,15 @@ public class Dijkstra {
 
 				distanciaTentativa = vectorCostos[nroNodo] + costoArista(nroNodo, nroNodoVecino);
 				// SI LA DISTANCIA NUEVA ES MENOR QUE LA QUE YA TENGO GUARDADO, PISO
-				if (distanciaTentativa < vectorCostos[nroNodoVecino]) {
+				if (!visitado[nroNodoVecino] && distanciaTentativa < vectorCostos[nroNodoVecino]) {
 					vectorCostos[nroNodoVecino] = distanciaTentativa;
-				
-						precedencia.setValorEnPosicion(nroNodo, nroNodoVecino, nroNodoVecino);
-					
-					nodosSinVisitar
-							.add(new CostosANodo(nroNodoVecino, vectorCostos[nroNodoVecino]));
+
+					precedencia[nroNodoVecino] = nroNodo;
+
+					nodosSinVisitar.add(new CostosANodo(nroNodoVecino, vectorCostos[nroNodoVecino]));
 				}
 			}
+			visitado[nroNodo] = true;
 
 		}
 		mostrarResultadoEnConsola();
@@ -66,54 +68,43 @@ public class Dijkstra {
 	}
 
 	private void mostrarPrecedencia() {
-		List<Integer> vectorPrecedencia = new ArrayList<>();
-		int i = nroNodoInicial;
-			for(int j = 0;j < precedencia.getOrden();j++) {	
-				
-				conseguirPrecedencia(i,j,vectorPrecedencia);
-				System.out.println("El path de "+i+" a "+j +" es:");
-				
-				if(!vectorPrecedencia.isEmpty()) {
-					//Collections.reverse(vectorPrecedencia);
-					if(vectorPrecedencia.get(vectorPrecedencia.size()-1)==j)
-						vectorPrecedencia.remove(vectorPrecedencia.size()-1);
-				System.out.print(i + " -> ");
-				for(Integer valor : vectorPrecedencia) {
-					System.out.print("" + valor +"-> ");
-				}
-				System.out.println(""+j+"");
-		
-				vectorPrecedencia.clear();
-				}else {
-					System.out.println("No existe camino");
-				}
-				
+
+		for (int i = 0; i < precedencia.length; i++) {
+			if (precedencia[i] != nroNodoInicial) {
+				System.out.print("\n" + nroNodoInicial + " -> ");
+				System.out.print(i + " \t\t ");
+				System.out.print(vectorCostos[i] + "\t\t");
+				printPath(i);
 			}
-			
-	}
-	private void inicializarPrecedencia() {
-		for(int i = 0 ; i < precedencia.getOrden() ; i++) {
-			for(int j = 0;j < precedencia.getOrden();j++) {	
-				
-				precedencia.setValorEnPosicion(i, j, -1);
-				
-			}
-		}	
-	}
-	private void conseguirPrecedencia(int desde, int hasta, List<Integer> vectorPrecedencia) {
-		int k = precedencia.getValorEnPosicion(desde,hasta);
-		if(k!=-1) {
-			vectorPrecedencia.add(k);
-			conseguirPrecedencia(k,hasta, vectorPrecedencia);
 		}
-		return;
+		System.out.println();
+		System.out.println();
 	}
+
+	private void inicializarPrecedencia() {
+		for (int i = 0; i < precedencia.length; i++) {
+			precedencia[i] = -1;
+		}
+	}
+
+	private void printPath(int i) {
+
+		// Base case : Source node has
+		// been processed
+		if (i == -1) {
+			return;
+		}
+		printPath(precedencia[i]);
+		System.out.print(i + " ");
+	}
+
 	private void inicializarVectorCostos() {
 		for (int i = 0; i < vectorCostos.length; i++) {
 
 			vectorCostos[i] = 200000;
 		}
 		vectorCostos[nroNodoInicial] = 0;
+
 	}
 
 	public void mostrarResultadoEnConsola() {
@@ -127,6 +118,5 @@ public class Dijkstra {
 		return grafo.getMatrizNodos().getValorEnPosicion(nroNodoInicio, nroNodoDestino);
 
 	}
-
 
 }
