@@ -28,6 +28,8 @@ public class EjecutarGrafos {
 		
 		BFS bfs = new BFS(grafo,2);
 		bfs.resolver();
+		
+		
 	}
 
 }
