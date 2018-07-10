@@ -1,6 +1,6 @@
 package com.unlam.pavanzada.grafos;
 
-public class Arista {
+public class Arista implements Comparable<Arista>{
 	int costo;
 	Integer nInicial;
 	Integer nFinal;
@@ -34,6 +34,11 @@ public class Arista {
 
 	public void setnFinal(Integer nFinal) {
 		this.nFinal = nFinal;
+	}
+
+	@Override
+	public int compareTo(Arista o) {
+		return this.costo - o.costo;
 	}
 	
 	

@@ -1,5 +1,7 @@
 package com.unlam.pavanzada.algoritmosgrafos;
 
+import java.util.Collections;
+
 import com.unlam.pavanzada.grafos.Arista;
 import com.unlam.pavanzada.grafos.Grafo;
 
@@ -12,7 +14,7 @@ public class Kruskal {
 	public Kruskal(Grafo grafo){
 		this.grafo = grafo;
 		subconjuntos = new Subconjunto[grafo.getCantNodos()];
-		resultado = new Arista[grafo.getCantNodos()];
+		resultado = new Arista[grafo.getCantNodos()-1];
 	}
 	
 	class Subconjunto{
@@ -41,21 +43,22 @@ public class Kruskal {
 	
 	public void resolver(){
 		inicializarSubconjuntos();
+		Collections.sort(grafo.getAristas());
 		int e=0;
 		int i=0;
 		
-		while(e< grafo.getCantNodos()){
-			Arista aristaActual = grafo.getAristas().get(e);
+		while(e< grafo.getCantNodos()-1){
+			Arista aristaActual = grafo.getAristas().get(i);
 			
 			int x = find(aristaActual.getnInicial());
 			int y = find(aristaActual.getnFinal());
 			
 			if(x!=y){
-				resultado[i]=aristaActual;
+				resultado[e]=aristaActual;
 				union(x,y);
-				i++;
+				e++;
 			}
-			e++;
+			i++;
 		}
 		System.out.println("");
 	}

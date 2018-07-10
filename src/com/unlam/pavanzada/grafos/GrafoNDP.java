@@ -53,14 +53,14 @@ public class GrafoNDP extends Grafo{
 				Integer nodoDestino = Integer.valueOf(valores[1]);
 				Integer costo = Integer.valueOf(valores[2]);
 				if(nodoInicio<nodoDestino) {
-					aristas.add(new Arista(costo,nodoInicio,nodoDestino));
+					
 					matrizNodos.setValorEnPosicion(nodoInicio, nodoDestino , costo);
 				}else {
-					aristas.add(new Arista(costo,nodoDestino,nodoInicio));
-
+					
 					matrizNodos.setValorEnPosicion(nodoDestino, nodoInicio , costo);
 				}
- 				
+				aristas.add(new Arista(costo,nodoInicio,nodoDestino));
+ 				aristas.add(new Arista(costo,nodoDestino,nodoInicio));
  				
  				agregarVecino(nodoInicio,nodoDestino);
  				
