@@ -94,17 +94,15 @@ public class Floyd {
 		for(int i = 0 ; i < matrizResultado.getOrden() ; i++) {
 			for(int j = 0;j < matrizResultado.getOrden();j++) {	
 				
-				int costo = matrizNodos.getValorEnPosicion(i, j);
-				if(costo==0) {
-					costo=99999;
-				}	
-				matrizResultado.setValorEnPosicion(i,j,costo);
-				
+				int costo;
+						
 				if(i==j) {
-					matrizResultado.setValorEnPosicion(i, j,0);
+					costo=0;
 				
+				}else{
+					costo = matrizNodos.getValorEnPosicion(i, j);
 				}
-				
+				matrizResultado.setValorEnPosicion(i,j,costo);
 			}
 		}
 		

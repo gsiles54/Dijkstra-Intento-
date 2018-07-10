@@ -2,14 +2,14 @@ package com.unlam.pavanzada.grafos;
 
 public class Arista {
 	int costo;
-	Nodo nInicial;
-	Nodo nFinal;
+	Integer nInicial;
+	Integer nFinal;
 	
-	public Arista(int costo, Nodo nInicial, Nodo nFinal) {
+	public Arista(int costo, Integer nodoInicio, Integer nodoDestino) {
 		super();
 		this.costo = costo;
-		this.nInicial = nInicial;
-		this.nFinal = nFinal;
+		this.nInicial = nodoInicio;
+		this.nFinal = nodoDestino;
 	}
 
 	public int getCosto() {
@@ -20,19 +20,19 @@ public class Arista {
 		this.costo = costo;
 	}
 
-	public Nodo getnInicial() {
+	public Integer getnInicial() {
 		return nInicial;
 	}
 
-	public void setnInicial(Nodo nInicial) {
+	public void setnInicial(Integer nInicial) {
 		this.nInicial = nInicial;
 	}
 
-	public Nodo getnFinal() {
+	public Integer getnFinal() {
 		return nFinal;
 	}
 
-	public void setnFinal(Nodo nFinal) {
+	public void setnFinal(Integer nFinal) {
 		this.nFinal = nFinal;
 	}
 	

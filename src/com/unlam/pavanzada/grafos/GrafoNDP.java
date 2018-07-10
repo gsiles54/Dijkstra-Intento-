@@ -39,6 +39,7 @@ public class GrafoNDP extends Grafo{
 			this.cantNodos = Integer.valueOf(valores[0]);
 			matrizNodos = new MatrizSimetrica(cantNodos);
 			this.cantAristas =  Integer.valueOf(valores[1]);
+			aristas = new ArrayList<>(cantAristas);
 			int i = 0;
 			nodos = new ArrayList<>(cantNodos);
 			for(i = 0 ; i<cantNodos ; i++){
@@ -52,8 +53,11 @@ public class GrafoNDP extends Grafo{
 				Integer nodoDestino = Integer.valueOf(valores[1]);
 				Integer costo = Integer.valueOf(valores[2]);
 				if(nodoInicio<nodoDestino) {
+					aristas.add(new Arista(costo,nodoInicio,nodoDestino));
 					matrizNodos.setValorEnPosicion(nodoInicio, nodoDestino , costo);
 				}else {
+					aristas.add(new Arista(costo,nodoDestino,nodoInicio));
+
 					matrizNodos.setValorEnPosicion(nodoDestino, nodoInicio , costo);
 				}
  				

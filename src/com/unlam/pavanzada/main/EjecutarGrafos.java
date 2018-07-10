@@ -6,12 +6,13 @@ import com.unlam.pavanzada.algoritmosgrafos.Dijkstra;
 import com.unlam.pavanzada.algoritmosgrafos.Floyd;
 import com.unlam.pavanzada.grafos.Grafo;
 import com.unlam.pavanzada.grafos.GrafoDP;
+import com.unlam.pavanzada.grafos.GrafoNDP;
 
 public class EjecutarGrafos {
 
 	public static void main(String[] args) {
 		File f = new File("entrada.txt");
-		Grafo grafo = new GrafoDP();
+		Grafo grafo = new GrafoNDP();
 		grafo.leerArchivo(f);
 		
 		Dijkstra dijsktra = new Dijkstra(grafo, 1);

@@ -11,15 +11,15 @@ public abstract class Grafo {
 	protected int cantNodos;
 	protected Matriz matrizNodos;
 	protected List<Nodo> nodos;
-	
+	protected List<Arista> aristas;
 	
 	public abstract void leerArchivo(File f);
 	
 	abstract protected void agregarVecino(Integer nodoInicio, Integer nodoDestino) ;
 
 
-	public void getAristas(){
-		
+	public List<Arista> getAristas(){
+		return aristas;
 	}
 
 	public int getCantAristas() {

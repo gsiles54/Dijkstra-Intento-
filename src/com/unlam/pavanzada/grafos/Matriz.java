@@ -9,8 +9,19 @@ public class Matriz {
 	public Matriz(int orden) {
 		this.orden = orden;
 		this.matriz = new int[orden][orden];
+		inicializarMatriz();
 	}
-
+	
+	private void inicializarMatriz(){
+		for(int i = 0 ; i < orden ;i++){
+			for(int j = 0;j < orden ; j++){
+				if(i==j)
+					matriz[i][j]=0;
+				else
+					matriz[i][j]=200000;
+			}
+		}
+	}
 	public void setValorEnPosicion(int fila, int columna, int costo) {
 		this.matriz[fila][columna] = costo;
 	}

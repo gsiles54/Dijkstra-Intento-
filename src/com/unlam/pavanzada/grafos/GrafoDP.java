@@ -29,6 +29,7 @@ public class GrafoDP extends Grafo{
 			this.cantNodos = Integer.valueOf(valores[0]);
 			matrizNodos = new Matriz(cantNodos);
 			this.cantAristas =  Integer.valueOf(valores[1]);
+			aristas = new ArrayList<>(cantAristas);
 			int i = 0;
 			nodos = new ArrayList<>(cantNodos);
 			for(i = 0 ; i<cantNodos ; i++){
@@ -41,7 +42,7 @@ public class GrafoDP extends Grafo{
 				Integer nodoInicio = Integer.valueOf(valores[0]);
 				Integer nodoDestino = Integer.valueOf(valores[1]);
 				Integer costo = Integer.valueOf(valores[2]);
-			
+				aristas.add(new Arista(costo,nodoInicio,nodoDestino));
 					matrizNodos.setValorEnPosicion(nodoInicio, nodoDestino , costo);
 				
  				
